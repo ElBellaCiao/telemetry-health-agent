@@ -4,3 +4,12 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+# === Core Runtime & Utilities ===
+anyhow = "1"
+tokio = "1"
+
+# === Utilities ===
+chrono = { version = "0", features = ["serde"] }
+sysinfo = "0"
+serde = { version = "1", features = ["derive"] }
+axum = "0.8.4"
