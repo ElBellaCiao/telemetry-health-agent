@@ -606,7 +606,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "telemetry-health-client"
+name = "telemetry-health-agent"
 version = "0.1.0"
 dependencies = [
  "anyhow",
