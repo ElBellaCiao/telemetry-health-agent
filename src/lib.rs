@@ -1,7 +1,7 @@
 use crate::config::Config;
-use crate::service::{Deps, get_health_metrics};
-use axum::Router;
+use crate::service::{get_health_metrics, Deps};
 use axum::routing::get;
+use axum::Router;
 use std::sync::{Arc, Mutex};
 use sysinfo::{Networks, System};
 
@@ -9,7 +9,9 @@ mod config;
 mod model;
 mod service;
 
+use crate::model::HEALTH_ENDPOINT;
 pub use model::InstanceHealth;
+
 pub async fn run_health_agent() -> anyhow::Result<()> {
     let state = Deps {
         system: Arc::new(Mutex::new(System::new_all())),
@@ -19,7 +21,7 @@ pub async fn run_health_agent() -> anyhow::Result<()> {
     let config = Config::load_from_env();
 
     let app = Router::new()
-        .route(&config.end_point, get(get_health_metrics))
+        .route(&format!("/{}", HEALTH_ENDPOINT), get(get_health_metrics))
         .with_state(state);
 
     let listener = tokio::net::TcpListener::bind(config.bind_addr).await?;
