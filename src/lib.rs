@@ -1,7 +1,7 @@
 use crate::config::Config;
-use crate::service::{get_health_metrics, Deps};
-use axum::routing::get;
+use crate::service::{Deps, get_health_metrics};
 use axum::Router;
+use axum::routing::get;
 use std::sync::{Arc, Mutex};
 use sysinfo::{Networks, System};
 
@@ -9,7 +9,7 @@ mod config;
 mod model;
 mod service;
 
-use crate::model::HEALTH_ENDPOINT;
+pub use model::HEALTH_ENDPOINT;
 pub use model::InstanceHealth;
 
 pub async fn run_health_agent() -> anyhow::Result<()> {
